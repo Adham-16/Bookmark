@@ -19,7 +19,7 @@ submitBtn.addEventListener("click", function () {
     changing()
     clear();
     bookMarkName.classList.remove("is-valid");
-    bookMarkName.classList.remove("is-valid");
+    bookMarkURL.classList.remove("is-valid");
   } else {
     alertBox.classList.remove("d-none");
   }

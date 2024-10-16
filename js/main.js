@@ -50,14 +50,16 @@ function deleteInfo(i) {
     arrInfo.splice(i,1)
     changing()
 }
+
 function visit(e) {
-  var httpsRgx = /^https?:\/\//;
-  if (httpsRgx.test(arrInfo[e].URL)) {
-    open(arrInfo[e].URL);
-  } else {
-    open(`https://${arrInfo[e].URL}`);
+  try {
+    let url = new URL(arrInfo[e].URL.includes('http') ? arrInfo[e].URL : `https://${arrInfo[e].URL}`);
+    open(url);
+  } catch (error) {
+    console.error("Invalid URL:", arrInfo[e].URL);
   }
 }
+
 var nameRgx = /^\w{3,}(\s+\w+)*$/;
 var urlRgx = /^(https?:\/\/)?(w{3}\.)?\w+\.\w{2,}\/?(:\d{2,5})?(\/\w+)*$/;
 bookMarkName.addEventListener("input", function () {
@@ -76,11 +78,11 @@ function validate(element, regex) {
     element.classList.remove("is-valid");
   }
 }
+
 function capitalize(str) {
-  let stringArr = str.split("");
-  stringArr[0] = stringArr[0].toUpperCase();
-  return stringArr.join("");
+  return str.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
 }
+
 function closeBox() {
   alertBox.classList.add("d-none");
 }

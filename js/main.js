@@ -80,11 +80,11 @@ function display() {
     }
   }
   if (!found && arrInfo.length !== 0) {
-    collector = (
+    collector = `
       <tr>
         <td colspan="6">No results found</td>
       </tr>
-    );
+    `;
   }
   document.getElementById("tableBody").innerHTML = collector;
 }

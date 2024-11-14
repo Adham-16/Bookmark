@@ -55,7 +55,7 @@ function display() {
   for (let i = 0; i < arrInfo.length; i++) {
     if (arrInfo[i].Name.toLowerCase().includes(search.value.toLowerCase())) {
       index = i;
-      collector += (
+      collector += `
         <tr>
           <td>${i + 1}</td>
           <td>${arrInfo[i].Name}</td>
@@ -75,8 +75,7 @@ function display() {
               <i class="fa-solid fa-trash-can pe-2"></i>Delete{" "}
             </button>
           </td>
-        </tr>
-      );
+        </tr>`;
       found = true;
     }
   }

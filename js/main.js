@@ -12,31 +12,21 @@ let index;
 display();
 
 submitBtn.addEventListener("click", function () {
-  let info = {
-    Name: capitalize(bookMarkName.value),
-    URL: bookMarkURL.value,
-  };
-  if (updateMood) {
-    update(info);
+  if (
+    bookMarkName.classList.contains("is-valid") &&
+    bookMarkURL.classList.contains("is-valid")
+  ) {
+    var info = {
+      Name: capitalize(bookMarkName.value),
+      URL: bookMarkURL.value,
+    };
+    arrInfo.push(info);
+    changing();
+    clear();
+    bookMarkName.classList.remove("is-valid");
+    bookMarkName.classList.remove("is-valid");
   } else {
-    if (
-      bookMarkName.classList.contains("is-valid") &&
-      bookMarkURL.classList.contains("is-valid")
-    ) {
-      Swal.fire({
-        title: "Success!",
-        text: "The Data were added successfully!",
-        icon: "success",
-        timer: 1500,
-      });
-      arrInfo.push(info);
-      changing();
-      clear();
-      bookMarkName.classList.remove("is-valid");
-      bookMarkURL.classList.remove("is-valid");
-    } else {
-      alertBox.classList.remove("d-none");
-    }
+    alertBox.classList.remove("d-none");
   }
 });
 
@@ -73,41 +63,19 @@ function display() {
 }
 
 function deleteInfo(i) {
-  Swal.fire({
-    title: "Are you sure?",
-    text: "You won't be able to revert this!",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, delete it!",
-  }).then((result) => {
-    if (result.isConfirmed) {
-      Swal.fire({
-        title: "Deleted!",
-        text: "Your Data has been deleted.",
-        icon: "success",
-      });
-      arrInfo.splice(i, 1);
-      changing();
-      clear();
-    }
-  });
+  arrInfo.splice(i, 1);
+  changing();
 }
-
 function visit(e) {
-  let httpsRgx = /^https?:\/\//;
+  var httpsRgx = /^https?:\/\//;
   if (httpsRgx.test(arrInfo[e].URL)) {
     open(arrInfo[e].URL);
   } else {
     open(`https://${arrInfo[e].URL}`);
   }
 }
-
-let nameRgx = /^\w{3,}(\s+\w+)*$/;
-let urlRgx =
-  /^(https?:\/\/)?(www\.)?[\w.-]+\.\w{2,}(\/?(:\d{2,5})?(\/[\w.-]*)*)?$/;
-
+var nameRgx = /^\w{3,}(\s+\w+)*$/;
+var urlRgx = /^(https?:\/\/)?(w{3}\.)?\w+\.\w{2,}\/?(:\d{2,5})?(\/\w+)*$/;
 bookMarkName.addEventListener("input", function () {
   validate(bookMarkName, nameRgx);
 });
@@ -125,8 +93,8 @@ function validate(element, regex) {
     element.classList.remove("is-valid");
   }
 }
+
 function capitalize(str) {
-  if (!str) return "";
   let stringArr = str.split("");
   stringArr[0] = stringArr[0].toUpperCase();
   return stringArr.join("");
@@ -149,41 +117,3 @@ document.addEventListener("click", function (e) {
     BoxOut();
   }
 });
-
-search.addEventListener("input", () => {
-  display();
-});
-
-function semiUpdate(i) {
-  if (i >= 0 && i < arrInfo.length) {
-    index = i;
-    updateMood = true;
-    submitBtn.innerHTML = "Update";
-    bookMarkName.value = arrInfo[i].Name;
-    bookMarkURL.value = arrInfo[i].URL;
-  } else {
-    console.error("Invalid index for updating.");
-  }
-}
-function update(newData) {
-  if (
-    bookMarkName.classList.contains("is-valid") &&
-    bookMarkURL.classList.contains("is-valid")
-  ) {
-    arrInfo.splice(index, 1, newData);
-    submitBtn.innerHTML = "Submit";
-    updateMood = false;
-    changing();
-    clear();
-    bookMarkName.classList.remove("is-valid");
-    bookMarkURL.classList.remove("is-valid");
-    Swal.fire({
-      title: "Success!",
-      text: "The Data was updated successfully!",
-      icon: "success",
-      timer: 1500,
-    });
-  } else {
-    warningBox.classList.remove("d-none");
-  }
-}

@@ -62,17 +62,17 @@ function display() {
           <td>${arrInfo[i].URL}</td>
           <td>
             <button onclick="visit(${i})" class="btn btn-outline-success">
-              <i class="fa-solid fa-eye pe-2"></i>Visit{" "}
+              <i class="fa-solid fa-eye pe-2"></i>Visit
             </button>
           </td>
           <td>
             <button onclick="semiUpdate(${i})" class="btn btn-outline-warning">
-              <i class="fa-solid fa-eye pe-2"></i>Update{" "}
+              <i class="fa-solid fa-eye pe-2"></i>Update
             </button>
           </td>
           <td>
             <button onclick="deleteInfo(${i})" class="btn btn-outline-danger">
-              <i class="fa-solid fa-trash-can pe-2"></i>Delete{" "}
+              <i class="fa-solid fa-trash-can pe-2"></i>Delete
             </button>
           </td>
         </tr>`;
